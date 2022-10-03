@@ -16,12 +16,14 @@ public class NoteController {
     private NoteRepository noteRepository;
 
     @GetMapping
-    public List<Note> getAll(@RequestParam(required = false, defaultValue = "") String keyword) {
+    public List<Note> getAll(@RequestParam(required = false, defaultValue = "") String keyword)
+    {
         return keyword.equals("") ? noteRepository.findAll() : noteRepository.findByKeyword(keyword);
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Note> getById(@PathVariable long id) {
+    public ResponseEntity<Note> getById(@PathVariable long id)
+    {
         Note note = noteRepository.findById(id);
         if (note == null)
             return ResponseEntity.notFound().build();
@@ -36,7 +38,8 @@ public class NoteController {
     }
 
     @PutMapping
-    public ResponseEntity<Note> update(@RequestBody Note note) {
+    public ResponseEntity<Note> update(@RequestBody Note note)
+    {
         Note n = noteRepository.findById(note.getId());
         if (n == null)
             return ResponseEntity.notFound().build();
@@ -45,7 +48,8 @@ public class NoteController {
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<?> delete(@PathVariable long id) {
+    public ResponseEntity<?> delete(@PathVariable long id)
+    {
         Note note = noteRepository.findById(id);
         if (note == null)
             return ResponseEntity.notFound().build();

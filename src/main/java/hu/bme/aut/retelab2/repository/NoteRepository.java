@@ -9,7 +9,8 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
-public class NoteRepository {
+public class NoteRepository
+{
 
     @PersistenceContext
     private EntityManager em;
@@ -27,12 +28,14 @@ public class NoteRepository {
         return em.find(Note.class, id);
     }
 
-    public List<Note> findByKeyword(String keyword) {
+    public List<Note> findByKeyword(String keyword)
+    {
         return em.createQuery("SELECT n FROM Note n WHERE n.text LIKE ?1", Note.class).setParameter(1, '%' + keyword + '%').getResultList();
     }
 
     @Transactional
-    public void deleteById(long id) {
+    public void deleteById(long id)
+    {
         Note todo = findById(id);
         em.remove(todo);
     }
